@@ -37,12 +37,9 @@ RUN docker-php-ext-install \
     gd \
     zip
 
-RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
-    && tar xfz /tmp/redis.tar.gz \
-    && rm -r /tmp/redis.tar.gz \
-    && mkdir -p /usr/src/php/ext/redis \
-    && mv phpredis-2.2.7 /usr/src/php/ext/redis \
-    && docker-php-ext-install redis
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
 
 RUN usermod -u 1000 www-data
 
