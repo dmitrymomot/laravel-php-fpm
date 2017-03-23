@@ -5,9 +5,14 @@ MAINTAINER Dmitry Momot <mail@dmomot.com>
 
 ENV TERM xterm
 
-RUN add-apt-repository ppa:ondrej/php
+RUN apt-get update \
+    && apt-get install -y software-properties-common python-software-properties \
+    && add-apt-repository ppa:ondrej/php \
+    && cat /etc/apt/sources.list.d/ondrej-php-jessie.list \
+    && sed -i -- 's/jessie/trusty/g' /etc/apt/sources.list.d/ondrej-php-jessie.list \
+    && cat /etc/apt/sources.list.d/ondrej-php-jessie.list
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --force-yes \
     libpq-dev \
     libmemcached-dev \
     php-memcached \
