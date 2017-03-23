@@ -5,8 +5,7 @@ MAINTAINER Dmitry Momot <mail@dmomot.com>
 
 ENV TERM xterm
 
-RUN apt-get install software-properties-common python-software-properties \
-    && add-apt-repository ppa:ondrej/php
+RUN add-apt-repository ppa:ondrej/php
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
