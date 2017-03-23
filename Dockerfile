@@ -5,17 +5,8 @@ MAINTAINER Dmitry Momot <mail@dmomot.com>
 
 ENV TERM xterm
 
-RUN apt-get update \
-    && apt-get install -y software-properties-common python-software-properties \
-    && add-apt-repository ppa:ondrej/php \
-    && cat /etc/apt/sources.list.d/ondrej-php-jessie.list \
-    && sed -i -- 's/jessie/trusty/g' /etc/apt/sources.list.d/ondrej-php-jessie.list \
-    && cat /etc/apt/sources.list.d/ondrej-php-jessie.list
-
 RUN apt-get update && apt-get install -y --force-yes \
     libpq-dev \
-    libmemcached-dev \
-    php-memcached \
     curl \
     libjpeg-dev \
     libpng12-dev \
@@ -25,6 +16,16 @@ RUN apt-get update && apt-get install -y --force-yes \
     vim \
     --no-install-recommends \
     && rm -r /var/lib/apt/lists/*
+
+# install memcache extension
+RUN apt-get update \
+  && apt-get install -y libmemcached11 libmemcachedutil2 build-essential libmemcached-dev libz-dev \
+  && pecl install memcached \
+  && echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini \
+  && apt-get remove -y build-essential libmemcached-dev libz-dev \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && rm -rf /tmp/pear
 
 # configure gd library
 RUN docker-php-ext-configure gd \
