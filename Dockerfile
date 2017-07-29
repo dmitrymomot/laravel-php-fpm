@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --force-yes \
     libssl-dev \
     libmcrypt-dev \
     vim \
+    cron \
     --no-install-recommends \
     && rm -r /var/lib/apt/lists/*
 
@@ -52,6 +53,8 @@ RUN pecl install -o -f redis \
     &&  docker-php-ext-enable redis
 
 RUN usermod -u 1000 www-data
+
+ENV EDITOR vi
 
 WORKDIR /var/www/laravel
 
