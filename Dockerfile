@@ -37,7 +37,7 @@ RUN docker-php-ext-configure gd \
 # Install mongodb, xdebug
 RUN pecl install mongodb \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && docker-php-ext-enable mongodb xdebug
 
 # Install extensions using the helper script provided by the base image
 RUN docker-php-ext-install \
