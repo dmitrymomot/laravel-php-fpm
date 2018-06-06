@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y --force-yes \
     libpq-dev \
     curl \
     libjpeg-dev \
-    libpng12-dev \
     libfreetype6-dev \
     libssl-dev \
     libmcrypt-dev \
