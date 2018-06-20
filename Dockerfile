@@ -33,10 +33,8 @@ RUN docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2
 
-# Install mongodb, xdebug
-RUN pecl install mongodb \
-    && pecl install xdebug \
-    && docker-php-ext-enable mongodb xdebug
+# Install mongodb
+RUN pecl install mongodb && docker-php-ext-enable mongodb 
 
 # Install extensions using the helper script provided by the base image
 RUN docker-php-ext-install \
